@@ -11,9 +11,6 @@ class ViewController: UIViewController,UITableViewDataSource {
 
     @IBOutlet weak var AppTableView: UITableView!
     
-    @IBOutlet weak var ViewLabel: UILabel!
-    @IBOutlet weak var ImageView: UIImageView!
-    
     struct cells{
         var ImageName: String
         var LabelData: String
@@ -28,13 +25,21 @@ class ViewController: UIViewController,UITableViewDataSource {
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
-        table.dataSource = self
+        AppTableView.dataSource = self
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return array.count
     
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cells = array[indexPath.row]
+        let cell = AppTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
+        cell.Label.text = cells.LabelData
+        cell.ImageView.image = UIImage(named: cells.ImageName)
+        return cell
+}
 
 }
 
